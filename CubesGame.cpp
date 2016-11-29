@@ -259,7 +259,6 @@ void normal_keys(unsigned char key, int w, int h){;
 				player.lives++;
 				player.points+=100;
 			}
-			
 			break;
 
 		case 'A':
@@ -344,32 +343,25 @@ void mouse_keys(int button, int state, int w, int h){
 				}
 
 				while((i!=lx || j!=lz) && count>0){
-					if((x+i+lx)<N && (z+j+lz)<N && (x+i+lx)>=0  && (z+j+lz)>=0){
-							if(C[x+i+lx][z+j+lz][y].getColour() == 0){
-								C[x+i+lx][z+j+lz][y].setSpecificColour(C[x+i][z+j][y].getColour());
-								C[x+i][z+j][y].eraseCube();
+					if((x+i)<N && (z+j)<N && (x+i)>=0  && (z+j)>=0){
+							if(C[x+i][z+j][y].getColour() == 0){
+								C[x+i][z+j][y].setSpecificColour(C[x+i-lx][z+j-lz][y].getColour());
+								C[x+i-lx][z+j-lz][y].eraseCube();
 							}
 					}
 					else {
-						printf("Hello\n");
 						C[x+i-lx][z+j-lz][y].eraseCube();
 					}
 
 					i-=lx;
 					j-=lz;
 					count--;
-
-					if(i==lx && j==lz){
-						printf("i==lx && j==lz\n");
-						C[x+i+lx][z+j+lz][y].setSpecificColour(C[x+i][z+j][y].getColour());
-						C[x+i][z+j][y].eraseCube();
-					}
-
 				}
 			}
 		}
 	}
 }
+
 
 //--------------------------------------//
 // Main                                 //
@@ -398,7 +390,6 @@ int main(int argc,char* argv[]){
 	
 		glutDisplayFunc(display);
 		glutReshapeFunc(changeSize);
-		//glutIdleFunc(display);
 	
 		glutKeyboardFunc(normal_keys);
 		glutMouseFunc(mouse_keys);
