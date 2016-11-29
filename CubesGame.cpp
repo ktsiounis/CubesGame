@@ -174,8 +174,7 @@ void changeSize(int w, int h) {
 }
 
 //This fuction creat the game's world
-void display()
-{
+void display(){
 	char string1[60],string2[60],string3[60];
 	
 	//------Clear the buffers----------------------------------------------
@@ -334,6 +333,7 @@ void mouse_keys(int button, int state, int w, int h){
 				int i=lx;
 				int j=lz;
 				int count=0;
+				
 				while((x+i)<N && (z+j)<N && (x+i)>=0  && (z+j)>=0 ){
 					if(C[x+i][z+j][y].getColour() != 0){
 						count++;
@@ -342,37 +342,18 @@ void mouse_keys(int button, int state, int w, int h){
 					}
 					else break;
 				}
-				printf("count = %d,i=%d, j=%d, lx=%d, lz=%d\n",count,i,j,lx,lz );
-				while(i!=lx || j!=lz || count>0){
-					printf("Hi\n");
+
+				while((i!=lx || j!=lz) && count>0){
 					if((x+i+lx)<N && (z+j+lz)<N && (x+i+lx)>=0  && (z+j+lz)>=0){
 							if(C[x+i+lx][z+j+lz][y].getColour() == 0){
 								C[x+i+lx][z+j+lz][y].setSpecificColour(C[x+i][z+j][y].getColour());
 								C[x+i][z+j][y].eraseCube();
-							}
-							else{
-								printf("Hello from else\n");
-								i+=lx;
-								j+=lz;
-								count++;
-								/*if((x+lx+lx+lx)<N && (z+lz+lz+lz)<N && (x+lx+lx+lx)>=0  && (z+lz+lz+lz)>=0){
-									C[x+lx+lx+lx][z+lz+lz+lz][y].setSpecificColour(C[x+lx+lx][z+lz+lz][y].getColour());
-									C[x+lx+lx][z+lz+lz][y].eraseCube();
-									C[x+lx+lx][z+lz+lz][y].setSpecificColour(C[x+lx][z+lz][y].getColour());
-									C[x+lx][z+lz][y].eraseCube();
-								}
-								else{
-									C[x+lx+lx][z+lz+lz][y].eraseCube();
-									C[x+lx+lx][z+lz+lz][y].setSpecificColour(C[x+lx][z+lz][y].getColour());
-									C[x+lx][z+lz][y].eraseCube();
-								}*/
 							}
 					}
 					else {
 						printf("Hello\n");
 						C[x+i-lx][z+j-lz][y].eraseCube();
 					}
-
 
 					i-=lx;
 					j-=lz;
