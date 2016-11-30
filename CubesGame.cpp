@@ -18,6 +18,7 @@ int lx=0,lz=-1;
 int x=0, z=5, y=1;
 int temp;
 int temp1;
+int layer;
 
 
 //I use struct for player
@@ -58,6 +59,25 @@ void initializeCubeArray(){
 		for(int j=0; j<N; j++) {
 			C[i][j][0].setColour(); //x,z,y y is the layers
 		}
+	}
+}
+
+void collapseAllCubes(){
+	layer = y;
+	while(layer < N){
+		for(int i=0; i<N; i++){
+			for(int j=0; j<N; j++){
+				if(C[i][j][layer-1].getColour() == 0 && C[i][j][layer].getColour() != 0){
+					int step = 1;
+					while(C[i][j][layer-step].getColour() == 0  && C[i][j][layer-step+1].getColour() != 0){
+						C[i][j][layer-step].setSpecificColour(C[i][j][layer-step+1].getColour());
+						C[i][j][layer-step+1].eraseCube();
+						step++;
+					}
+				}
+			}
+		}
+		layer++;
 	}
 }
 
@@ -304,6 +324,12 @@ void normal_keys(unsigned char key, int w, int h){;
 		case (32) : //when the player push the space button the cubes are increased by 1 and he loses 5 points
 			player.cubes++;
 			player.points-=5;
+			C[x][z][y-1].setSpecificColour(player.cubes);
+			break;
+
+		case 'R':
+		case 'r':
+			collapseAllCubes();
 			break;
 	}
 }
