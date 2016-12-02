@@ -317,9 +317,10 @@ void normal_keys(unsigned char key, int w, int h){;
 			break;
 
 		case (32) : //when the player push the space button the cubes are increased by 1 and he loses 5 points
-			C[x][z][y-1].setSpecificColour(player.cubes);//and the cube below changes colour
 			player.cubes++;
 			player.points-=5;
+			if(player.cubes==5) player.cubes=1;
+			C[x][z][y-1].setSpecificColour(player.cubes);//and the cube below changes colour
 			break;
 
 		case 'R':
